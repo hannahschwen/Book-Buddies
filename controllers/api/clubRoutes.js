@@ -1,18 +1,17 @@
 const router = require("express").Router();
-const { BookClub, Book } = require("../../models");
+const { Club, Book, User } = require("../../models");
 
 // api/bookclubs route
 router.get("/", async (req, res) => {
   try {
-    const bookClubs = await BookClub.findAll({
+    const clubData = await Club.findAll({
       include: [
-        {
-          model: Book
-        }
+        {model:Book, attributes: ['title']},
+        {model:User, attributes: ['name', 'email']}
+      
       ]
-    }
-    );
-    res.json(bookClubs);
+    });
+    res.json(clubData);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Server Error" });
@@ -21,8 +20,8 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   try {
-    const bookClub = await BookClub.findByPk(req.params.id);
-    res.json(bookClub);
+    const clubData = await Club.findByPk(req.params.id);
+    res.json(clubData);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Server Error" });
@@ -31,13 +30,8 @@ router.get("/:id", async (req, res) => {
 
 //Route for creating NEW book club by ID
 router.post('/', async (req, res) => {
-  const { clubName, description } = req.body;
-
-  if (!clubName || !description) {
-    return res.status(400).json({ error: 'Club Name and Description are required' });
-  }
   try {
-    const newBookClub = await BookClub.create({ clubName, description });
+    const newBookClub = await Club.create(req.body);
     res.status(201).json(newBookClub);
   } catch (err) {
     console.error(err);
@@ -49,7 +43,7 @@ router.post('/', async (req, res) => {
 //Route for DELETING book club by ID
 router.delete("/:id", async (req, res) => {
   try {
-    const deletedBookClub = BookClub.destroy({
+    const deletedBookClub = Club.destroy({
       where: { id: req.params.id },
     });
 
