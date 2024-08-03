@@ -1,0 +1,10 @@
+    <a href="/bookclub/{{id}}">
+      <div class="club-container">
+        <h3>{{name}}</h3>
+        <strong>Description: </strong>{{description}} </br>
+        <strong>Members: </strong>
+        {{#each users as |user|}}
+        {{user.name}},
+        {{/each}}
+      </div>
+    </a>

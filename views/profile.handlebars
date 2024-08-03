@@ -5,14 +5,28 @@
   <div class="clubs-title"><h3>Book Clubs</h3></div>
   <section class="clubs-section shadow1">
 
+{{!-- this is all the clubs --}}
     {{#each Clubs as |bookClub|}}
-    <a href="/bookclub/{{bookClub.id}}">
-      <div class="club-container">
-        <h3>{{bookClub.name}}</h3>
-        Description: {{bookClub.description}}
-      </div>
-    </a>
+      {{>club-info}}
     {{/each}}
+
+    <h1>Clubs they're a part of</h1>
+    {{name}}
+      {{#each clubs as |bookClub|}}
+
+          <a href="/bookclub/{{id}}">
+            <div class="club-container">
+              <h3>{{name}}</h3>
+              <strong>Description: </strong>{{description}} </br>
+              <strong>Members: </strong>
+              {{!-- this isn't working because it's getting info from api/clubs --}}
+              {{#each users as |user|}}
+              {{user.name}},
+              {{/each}}
+            </div>
+          </a>
+
+      {{/each}}
   
   <button id="start-new-bc-btn">Start a New Book Club</button>
   

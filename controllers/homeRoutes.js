@@ -17,6 +17,7 @@ router.get('/profile', withAuth, async (req, res) => {
     // Find user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
       attributes: { exclude: ['password'] },
+      include: [{  model: Club }]
       // do I need to include a model here?
     });
 
