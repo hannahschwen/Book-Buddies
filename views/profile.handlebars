@@ -1,49 +1,35 @@
-{{!-- Google Fonts --}}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-
-  {{!-- css  --}}
 <link rel="stylesheet" type="text/css" href="/css/profile.css">
-<link rel="stylesheet" type="text/css" href="/css/newBookClub.css">
 
 {{!-- section for tabs/books --}}
 <section class="clubs-section-container">
   <div class="clubs-title"><h3>Book Clubs</h3></div>
   <section class="clubs-section shadow1">
 
-    {{!-- Template --}}
-{{!-- <template id="bookClubTemplate">
-  <div class="club-container">
-    <h3></h3>
-    <p class="members"></p>
-  </div>
-</template> --}}
-
-
-
-{{!-- Here's an example club card to be recreated for each club the user is a part of --}}
+{{!-- this is all the clubs --}}
     {{#each Clubs as |bookClub|}}
-    <a href="/bookclub/{{bookClub.id}}">
-      <div class="club-container">
-        <h3>{{bookClub.name}}</h3>
-        Description: {{bookClub.description}}
-      </div>
-    </a>
+      {{>club-info}}
     {{/each}}
+
+    <h1>Clubs they're a part of</h1>
+    {{name}}
+      {{#each clubs as |bookClub|}}
+
+          <a href="/bookclub/{{id}}">
+            <div class="club-container">
+              <h3>{{name}}</h3>
+              <strong>Description: </strong>{{description}} </br>
+              <strong>Members: </strong>
+              {{!-- this isn't working because it's getting info from api/clubs --}}
+              {{#each users as |user|}}
+              {{user.name}},
+              {{/each}}
+            </div>
+          </a>
+
+      {{/each}}
   
   <button id="start-new-bc-btn">Start a New Book Club</button>
   
-{{!-- 
-      <div class="club-container">
-      <h3>Group Name</h3>
-      Members: Emmalyn, Isaac, Walter, Leo
-    </div>
-      <div class="club-container">
-      <h3>Group Name</h3>
-      Members: Emmalyn, Isaac, Walter, Leo
-    </div> --}}
-
   </section>
   
 {{!-- New Club Form --}}
